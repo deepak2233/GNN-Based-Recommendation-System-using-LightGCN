@@ -2,6 +2,7 @@
 # GNN-Based Recommendation System using LightGCN
 
 This project implements a **Graph Neural Network (GNN)** based recommendation system using **LightGCN** (Light Graph Convolution Network) for personalized product recommendations. The backend is powered by **FastAPI**, while the frontend is a simple HTML/JS interface to query the recommendations.
+
 ---
 
 ## Table of Contents
@@ -20,9 +21,10 @@ This project implements a **Graph Neural Network (GNN)** based recommendation sy
 
 
 ---
+
 ## Project Overview
 
-The goal of this project is to build an end-to-end recommendation system using GNNs, specifically **LightGCN**, which is tailored for large-scale recommendation tasks. The system uses user-item interactions to predict and recommend products to users.
+This project aims to build an end-to-end recommendation system using GNNs, specifically **LightGCN**, which is tailored for large-scale recommendation tasks. The system uses user-item interactions to predict and recommend products to users.
 
 The **backend** provides API endpoints to serve recommendations using FastAPI, and the **frontend** enables users to input a user ID and retrieve recommendations through a simple interface.
 
