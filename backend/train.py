@@ -4,6 +4,7 @@ from backend.utils import bpr_loss  # Correct relative import for utils
 from backend.model import LightGCNAttention  # Model import
 from backend.data_loader import load_amazon_reviews, build_edge_index  # Import both functions from data_loader
 import yaml
+import os
 
 def train_lightgcn(model, optimizer, edge_index, interactions, num_users, num_items, epochs, model_path):
     model.train()
@@ -16,6 +17,7 @@ def train_lightgcn(model, optimizer, edge_index, interactions, num_users, num_it
         print(f'Epoch {epoch + 1}/{epochs}, Loss: {loss.item()}')
 
     # Save the model after training
+    os.makedirs(os.path.dirname(model_path), exist_ok=True)
     torch.save(model.state_dict(), model_path)
     print(f"Model saved to {model_path}")
 
