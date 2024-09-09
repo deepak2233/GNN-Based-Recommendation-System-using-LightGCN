@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Get Recommendations</h1>
+        <div class="user-input">
+            <label for="userId">User ID:</label>
+            <input type="number" id="userId" name="userId" placeholder="Enter user ID">
+        </div>
+        <div class="user-input">
+            <label for="topK">Top-K Items:</label>
+            <input type="number" id="topK" name="topK" value="10">
+        </div>
+        <button id="getRecommendations">Get Recommendations</button>
+
+        <div id="recommendations"></div>
+    </div>
+
+    <script src="static/js/script.js"></script>
+</body>
+</html>

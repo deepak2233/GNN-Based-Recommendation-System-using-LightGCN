@@ -1,0 +1,19 @@
+/* Styles for the recommendations UI */ 
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.user-input {
+    margin-bottom: 20px;
+}
+#recommendations {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

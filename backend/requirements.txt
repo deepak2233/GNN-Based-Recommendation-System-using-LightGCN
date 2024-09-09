@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+torch
+torch_geometric
+torch_scatter
+pandas
+scikit-learn
+matplotlib
+seaborn
+pyyaml
