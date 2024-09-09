@@ -82,7 +82,7 @@ gnn_recommendation/
 ```
 
 3. **Download the dataset**:
-   Place the Amazon Product Reviews dataset (\`amazon_reviews.csv\`) inside the \`data/\` folder.
+   Place the Amazon Product Reviews dataset (`amazon_reviews.csv`) inside the `data/` folder.
 
 ### Frontend Setup
 
@@ -109,7 +109,7 @@ python3 main.py --mode train
 
 ```
 
-The model will be saved in \`backend/saved_models/lightgcn_model.pth\` after training is completed.
+The model will be saved in `backend/saved_models/lightgcn_model.pth` after training is completed.
 
 ### 3. Serve the API
 Once the model is trained, you can serve the FastAPI backend to provide recommendations:
@@ -119,13 +119,13 @@ python3 main.py --mode serve
 
 ```
 
-This will start a FastAPI server at \`http://localhost:8000/\`.
+This will start a FastAPI server at `http://localhost:8000/`.
 
 ### 4. Serve the Frontend
 There are two ways to serve the frontend:
 
 #### Method 1: Using Python's Simple HTTP Server
-1. Navigate to the \`frontend/\` directory:
+1. Navigate to the `frontend/` directory:
    
 ```
    cd frontend
@@ -139,7 +139,7 @@ There are two ways to serve the frontend:
 
 ```
 
-3. Open your browser and visit \`http://localhost:8001/\` to interact with the frontend.
+3. Open your browser and visit `http://localhost:8001/` to interact with the frontend.
 
 ---
 #### Method 2: Using Live Server in VS Code
