@@ -8,6 +8,7 @@ Usage:
     python main.py --mode train      # Train the LightGCN model
     python main.py --mode evaluate   # Evaluate the trained model
     python main.py --mode serve      # Start the FastAPI server
+    python main.py --mode streamlit  # Start interactive Streamlit dashboard
     python main.py --mode pipeline   # Run full pipeline (EDA -> train -> evaluate)
 """
 
@@ -29,13 +30,14 @@ Examples:
   python main.py --mode serve
   python main.py --mode evaluate --top-k 20
   python main.py --mode pipeline
+  python main.py --mode streamlit
   python main.py --mode train --config custom_config.yaml
         """
     )
 
     parser.add_argument(
         '--mode', type=str, required=True,
-        choices=['eda', 'train', 'evaluate', 'serve', 'pipeline'],
+        choices=['eda', 'train', 'evaluate', 'serve', 'streamlit', 'pipeline'],
         help='Pipeline mode to run'
     )
     parser.add_argument(
@@ -195,6 +197,25 @@ def run_evaluation(config, top_k_override=None):
     return results
 
 
+def run_streamlit(config, port_override=None):
+    """Start the Streamlit interactive dashboard."""
+    import subprocess
+
+    port = port_override or 8501
+    app_path = str(get_project_root() / 'frontend' / 'streamlit_app.py')
+
+    logger.info("=" * 60)
+    logger.info("Starting Streamlit Dashboard on port %d", port)
+    logger.info("=" * 60)
+
+    subprocess.run([
+        sys.executable, "-m", "streamlit", "run", app_path,
+        "--server.port", str(port),
+        "--server.headless", "true",
+        "--browser.gatherUsageStats", "false",
+    ])
+
+
 def run_serve(config, host_override=None, port_override=None):
     """Start the API server."""
     import uvicorn
@@ -269,6 +290,8 @@ def main():
             run_evaluation(config, top_k_override=args.top_k)
         elif args.mode == 'serve':
             run_serve(config, host_override=args.host, port_override=args.port)
+        elif args.mode == 'streamlit':
+            run_streamlit(config, port_override=args.port)
         elif args.mode == 'pipeline':
             run_pipeline(config)
     except FileNotFoundError as e:
