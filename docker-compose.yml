@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # Training service
+  train:
+    build: .
+    command: python main.py --mode train
+    volumes:
+      - ./data:/app/data
+      - ./saved_models:/app/saved_models
+      - ./checkpoints:/app/checkpoints
+      - ./logs:/app/logs
+      - ./cache:/app/cache
+    environment:
+      - LIGHTGCN_LOG_LEVEL=INFO
+
+  # API serving service
+  api:
+    build: .
+    command: python main.py --mode serve
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./saved_models:/app/saved_models
+      - ./logs:/app/logs
+      - ./cache:/app/cache
+    environment:
+      - LIGHTGCN_API_HOST=0.0.0.0
+      - LIGHTGCN_API_PORT=8000
+      - LIGHTGCN_LOG_LEVEL=INFO
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+
+  # EDA service
+  eda:
+    build: .
+    command: python main.py --mode eda
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    environment:
+      - LIGHTGCN_LOG_LEVEL=INFO
+
+  # Streamlit interactive dashboard
+  streamlit:
+    build: .
+    command: python main.py --mode streamlit --port 8501
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./saved_models:/app/saved_models
+      - ./logs:/app/logs
+      - ./cache:/app/cache
+    environment:
+      - LIGHTGCN_LOG_LEVEL=INFO
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Evaluation service
+  evaluate:
+    build: .
+    command: python main.py --mode evaluate
+    volumes:
+      - ./data:/app/data
+      - ./saved_models:/app/saved_models
+      - ./logs:/app/logs
+      - ./cache:/app/cache
+    environment:
+      - LIGHTGCN_LOG_LEVEL=INFO
